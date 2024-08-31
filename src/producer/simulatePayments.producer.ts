@@ -10,6 +10,7 @@ producer.on("ready", () => {
         orderId: `order-${Date.now()}`,
         status: "SUCCESS",
         amount: 150,
+        itemId: "item-1",
         quantity: 1
     });
 

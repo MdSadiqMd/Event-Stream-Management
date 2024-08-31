@@ -5,17 +5,19 @@ import { logger } from "../config";
 
 const updateInventory = (paymentEvent: PaymentEvent) => {
     const quantityToReduce: number = paymentEvent.quantity;
+    const itemId: string = paymentEvent.itemId;
 
-    if (inventory["item-1"] && paymentEvent.status === "SUCCESS") {
-        inventory["item-1"] = inventory["item-1"] - quantityToReduce;
-    } else if (inventory["item-1"] && paymentEvent.status !== "SUCCESS") {
+    if (inventory[itemId] && paymentEvent.status === "SUCCESS") {
+        inventory[itemId] -= quantityToReduce;
+        logger.info(`Updated Inventory ${inventory[itemId]}`);
+    } else if (inventory[itemId] && paymentEvent.status !== "SUCCESS") {
         logger.error(`Payment of OrderId ${paymentEvent.order} Failed`);
     }
 };
 
 consumer.on("message", (message: any) => {
     try {
-        const paymentEventReceived = JSON.parse(message.value);
+        const paymentEventReceived: PaymentEvent = JSON.parse(message.value);
         updateInventory(paymentEventReceived);
     } catch (error) {
         logger.error(`Consumer Failed to Process Message: `, error);

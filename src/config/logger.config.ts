@@ -1,5 +1,4 @@
 import winston from 'winston';
-import 'winston-mongodb';
 const { combine, timestamp, printf, colorize } = winston.format;
 
 const allowedTransports: winston.transport[] = [];
