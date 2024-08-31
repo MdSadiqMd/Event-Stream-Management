@@ -11,3 +11,5 @@ class PaymentEvent {
         this.quantity = quantity;
     }
 }
+
+export default PaymentEvent;
